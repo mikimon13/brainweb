@@ -1,0 +1,298 @@
+/* =========== Global Styles & Variables =========== */
+:root {
+    --primary-blue: #00aaff;
+    --glow-blue: rgba(0, 170, 255, 0.75);
+    --dark-bg: #030615;
+    --bg-gradient-start: #05081b;
+    --bg-gradient-end: #101531;
+    --text-color: #cdd6f4;
+    --border-color: rgba(0, 170, 255, 0.2);
+    --card-bg: rgba(10, 17, 47, 0.5);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-blue);
+    border-radius: 10px;
+    border: 2px solid var(--dark-bg);
+}
+
+
+/* =========== Pre-Loader =========== */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dark-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+#loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.brain-loader .brain-icon {
+    width: 100px;
+    height: 100px;
+    color: var(--primary-blue);
+    animation: pulse 2s infinite ease-in-out;
+}
+
+#loader p {
+    color: var(--primary-blue);
+    margin-top: 20px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px var(--glow-blue));
+    }
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 20px var(--glow-blue));
+    }
+}
+
+
+/* =========== Animated Background =========== */
+#neuron-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+
+/* =========== Main Content & Layout =========== */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Name typing animation */
+.name-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4rem;
+    color: var(--primary-blue);
+    text-shadow: 0 0 15px var(--glow-blue);
+    border-right: .15em solid var(--primary-blue);
+    white-space: nowrap;
+    overflow: hidden;
+    animation:
+        typing 3s steps(30, end) forwards,
+        blink-caret .75s step-end infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--primary-blue); }
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeIn 2s ease-in 3.5s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+/* =========== Navigation =========== */
+nav {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: rgba(10, 17, 47, 0.7);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+    text-align: center;
+    z-index: 100;
+    margin-bottom: 4rem;
+}
+
+nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary-blue);
+    text-shadow: 0 0 10px var(--glow-blue);
+}
+
+
+/* =========== Content Sections =========== */
+.content-section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border-color);
+    animation: slideUp 1s ease-out; /* Simple entry animation */
+}
+
+.content-section:last-child {
+    border-bottom: none;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content-section h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    color: var(--primary-blue);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 5px var(--glow-blue);
+}
+
+.entry {
+    background-color: var(--card-bg);
+    border-left: 3px solid var(--primary-blue);
+    padding: 20px;
+    margin-bottom: 1.5rem;
+    border-radius: 0 8px 8px 0;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.entry:hover {
+    background-color: rgba(0, 170, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.1);
+}
+
+.entry h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.entry .date {
+    font-style: italic;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+.entry ul {
+    list-style-position: inside;
+    padding-left: 10px;
+}
+
+.entry li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+/* Skills Section */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.skills-grid span {
+    background: var(--card-bg);
+    color: var(--primary-blue);
+    padding: 10px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.skills-grid span:hover {
+    background-color: var(--primary-blue);
+    color: var(--dark-bg);
+    box-shadow: 0 0 15px var(--glow-blue);
+}
+
+/* =========== Responsive Design =========== */
+@media (max-width: 768px) {
+    .name-title {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+    }
+
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    nav a {
+        margin: 0 5px;
+        font-size: 1rem;
+    }
+}
+
